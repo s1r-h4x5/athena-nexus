@@ -2,7 +2,7 @@
 
 **Container Orchestrator for Security Professionals** built for [AthenaOS](https://athenaos.org) to deploy, manage, and monitor security tools running inside Docker or Podman containers.
 
-<br>
+![Athena Nexus](extra/screenshot.png)
 
 ## Overview
 
