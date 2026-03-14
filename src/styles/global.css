@@ -1,0 +1,227 @@
+/* ═══════════════════════════════════════════════════════════
+   ATHENA CONTAINER MANAGER — Global Styles
+   Theme: Cybersecurity Operations HUD
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+  /* Core background layers */
+  --bg-void: #050709;
+  --bg-base: #080c10;
+  --bg-surface: #0d1117;
+  --bg-elevated: #121920;
+  --bg-card: #0f1621;
+  --bg-card-hover: #14202e;
+  --bg-overlay: #192330;
+
+  /* Primary accent — electric cyan */
+  --cyan-bright: #00e5ff;
+  --cyan-mid: #00b8d9;
+  --cyan-dim: #007a8f;
+  --cyan-glow: rgba(0,229,255,0.15);
+  --cyan-glow-strong: rgba(0,229,255,0.3);
+
+  /* Secondary accent — terminal green */
+  --green-bright: #39ff14;
+  --green-mid: #22c55e;
+  --green-dim: #16a34a;
+  --green-glow: rgba(57,255,20,0.12);
+
+  /* Status colors */
+  --status-running: #39ff14;
+  --status-stopped: #64748b;
+  --status-error: #ff2d55;
+  --status-warning: #f59e0b;
+  --status-updating: #00e5ff;
+  --status-healthy: #39ff14;
+  --status-unhealthy: #ff2d55;
+
+  /* Danger */
+  --red-bright: #ff2d55;
+  --red-mid: #e11d48;
+  --red-dim: #9f1239;
+  --red-glow: rgba(255,45,85,0.15);
+
+  /* Amber */
+  --amber: #f59e0b;
+  --amber-glow: rgba(245,158,11,0.15);
+
+  /* Text hierarchy */
+  --text-primary: #e2eaf4;
+  --text-secondary: #8b9ab0;
+  --text-muted: #4a5568;
+  --text-accent: #00e5ff;
+  --text-code: #39ff14;
+
+  /* Borders */
+  --border-subtle: rgba(0,229,255,0.08);
+  --border-dim: rgba(0,229,255,0.15);
+  --border-active: rgba(0,229,255,0.4);
+  --border-card: rgba(255,255,255,0.06);
+
+  /* Fonts */
+  --font-ui: 'Rajdhani', 'Share Tech Mono', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Share Tech Mono', monospace;
+
+  /* Sidebar */
+  --sidebar-width: 220px;
+  --sidebar-collapsed: 64px;
+  --topbar-height: 48px;
+
+  /* Transitions */
+  --transition-fast: 120ms ease;
+  --transition-mid: 220ms ease;
+  --transition-slow: 400ms ease;
+
+  /* Shadows */
+  --shadow-card: 0 4px 24px rgba(0,0,0,0.5);
+  --shadow-cyan: 0 0 20px rgba(0,229,255,0.2);
+  --shadow-green: 0 0 16px rgba(57,255,20,0.2);
+  --shadow-red: 0 0 16px rgba(255,45,85,0.2);
+}
+
+/* ── Reset ────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: var(--font-ui);
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Subtle scanline texture */
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,229,255,0.012) 2px,
+      rgba(0,229,255,0.012) 4px
+    );
+}
+
+/* Grid noise overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(0,229,255,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 30% at 90% 90%, rgba(57,255,20,0.04) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Scrollbars ──────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-surface);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--cyan-dim);
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--cyan-mid);
+}
+
+/* ── Typography ──────────────────────────────────────────── */
+h1, h2, h3, h4 {
+  font-family: var(--font-ui);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+code, pre, .mono {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+}
+
+/* ── Selection ───────────────────────────────────────────── */
+::selection {
+  background: var(--cyan-glow-strong);
+  color: var(--cyan-bright);
+}
+
+/* ── Layout shell ────────────────────────────────────────── */
+.app-shell {
+  display: flex;
+  height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Utility classes ─────────────────────────────────────── */
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.gap-1 { gap: 4px; }
+.gap-2 { gap: 8px; }
+.gap-3 { gap: 12px; }
+.gap-4 { gap: 16px; }
+
+/* ── Glow text ───────────────────────────────────────────── */
+.glow-cyan {
+  color: var(--cyan-bright);
+  text-shadow: 0 0 10px rgba(0,229,255,0.6);
+}
+.glow-green {
+  color: var(--green-bright);
+  text-shadow: 0 0 10px rgba(57,255,20,0.6);
+}
+.glow-red {
+  color: var(--red-bright);
+  text-shadow: 0 0 10px rgba(255,45,85,0.6);
+}
+
+/* ── Animated gradient border ────────────────────────────── */
+@keyframes borderPulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.8; }
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.7; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease forwards;
+}

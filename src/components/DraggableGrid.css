@@ -1,0 +1,52 @@
+.draggable-grid {
+  display: contents; /* lets items participate in parent grid/flex */
+}
+
+.draggable-grid__item {
+  position: relative;
+  cursor: default;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.draggable-grid__item--draggable {
+  cursor: grab;
+}
+
+.draggable-grid__item--draggable:active {
+  cursor: grabbing;
+}
+
+/* Drop target highlight */
+.draggable-grid__item--over {
+  outline: 1px dashed var(--cyan-bright);
+  outline-offset: 3px;
+  opacity: 0.8;
+  transform: scale(0.98);
+}
+
+/* Subtle 3-dot grip handle — visible on hover */
+.draggable-grid__handle {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 3px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+}
+
+.draggable-grid__item:hover .draggable-grid__handle {
+  opacity: 1;
+}
+
+.draggable-grid__handle span {
+  display: block;
+  width: 12px;
+  height: 1.5px;
+  background: var(--text-muted);
+  border-radius: 2px;
+}

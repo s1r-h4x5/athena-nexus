@@ -1,0 +1,129 @@
+{
+    "version": "12",
+    "tools": [
+        {
+            "id": "openvas",
+            "name": "Greenbone OpenVAS",
+            "category": "vulnerability",
+            "description": "Full-featured open source vulnerability scanner. The Greenbone Community Edition includes OpenVAS scanner, GVM, and the Greenbone Security Assistant web interface. Industry-standard for network vulnerability assessment.",
+            "source": {
+                "compose_url": "https://greenbone.github.io/docs/latest/_static/compose.yaml"
+            },
+            "access": {
+                "entrypoint": "https://localhost:{port}",
+                "health_check": "https://localhost:{port}/login",
+                "ports": [
+                    "443:443",
+                    "9392:9392"
+                ]
+            },
+            "icon": "openvas.svg",
+            "tags": [
+                "scanner",
+                "vulnerability",
+                "compliance",
+                "cve"
+            ],
+            "cli_tool": false
+        },
+        {
+            "id": "nuclei",
+            "name": "Nuclei",
+            "category": "vulnerability",
+            "description": "Fast and customizable vulnerability scanner based on templates. Supports thousands of community templates for CVEs, misconfigurations, exposed panels, and more. Run via CLI inside a managed container.",
+            "source": {
+                "registry": "docker.io",
+                "image": "projectdiscovery/nuclei",
+                "version": "latest"
+            },
+            "icon": "nuclei.svg",
+            "tags": [
+                "scanner",
+                "templates",
+                "fast",
+                "cli"
+            ],
+            "cli_tool": true
+        },
+        {
+            "id": "wazuh",
+            "name": "Wazuh SIEM",
+            "category": "siem",
+            "description": "Security information and event management platform. Provides intrusion detection, log analysis, file integrity monitoring, vulnerability detection, and compliance reporting (PCI-DSS, HIPAA, GDPR, NIST).",
+            "source": {
+                "compose_repo": "https://github.com/wazuh/wazuh-docker",
+                "compose_repo_tag": "v4.14.3",
+                "compose_subdir": "single-node",
+                "pre_deploy": [
+                    {
+                        "type": "compose",
+                        "file": "generate-indexer-certs.yml",
+                        "args": [
+                            "run",
+                            "--rm",
+                            "generator"
+                        ]
+                    }
+                ]
+            },
+            "access": {
+                "entrypoint": "https://localhost:{port}",
+                "health_check": "https://localhost:{port}",
+                "ports": [
+                    "443:443",
+                    "1514:1514",
+                    "1515:1515",
+                    "55000:55000"
+                ]
+            },
+            "icon": "wazuh.svg",
+            "tags": [
+                "siem",
+                "ids",
+                "log-analysis",
+                "compliance"
+            ],
+            "cli_tool": false
+        },
+        {
+            "id": "zeek",
+            "name": "Zeek IDS",
+            "category": "network",
+            "description": "Powerful network analysis framework. Performs deep packet inspection, protocol analysis, and generates structured logs for all network activity. Foundation for many SIEM integrations.",
+            "source": {
+                "registry": "docker.io",
+                "image": "zeek/zeek",
+                "version": "latest"
+            },
+            "icon": "zeek.svg",
+            "tags": [
+                "ids",
+                "network",
+                "packet-analysis",
+                "dpi",
+                "logging"
+            ],
+            "cli_tool": true
+        },
+        {
+            "id": "suricata",
+            "name": "Suricata IDS/IPS",
+            "category": "network",
+            "description": "High-performance network intrusion detection and prevention system. Supports multi-threading, hardware acceleration, and real-time rule-based traffic analysis. Compatible with Snort rules.",
+            "source": {
+                "registry": "docker.io",
+                "image": "jasonish/suricata",
+                "version": "latest"
+            },
+            "icon": "suricata.svg",
+            "tags": [
+                "ids",
+                "ips",
+                "network",
+                "rules",
+                "snort"
+            ],
+            "cli_tool": true
+        }
+    ]
+}

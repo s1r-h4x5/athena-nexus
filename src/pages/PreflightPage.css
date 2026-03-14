@@ -1,0 +1,335 @@
+/* ═══════════════════════════════════════════════════════════
+   PreflightPage.css — M8: Pre-flight System Checks
+   ═══════════════════════════════════════════════════════════ */
+
+.pf-page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* ── Summary bar ────────────────────────────────────────────── */
+.pf-summary {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.pf-summary--pass   { border-bottom-color: rgba(57,255,20,.25);  }
+.pf-summary--warn   { border-bottom-color: rgba(245,158,11,.25); }
+.pf-summary--fail   { border-bottom-color: rgba(255,45,85,.25);  }
+.pf-summary--pending{ border-bottom-color: var(--border-subtle); }
+.pf-summary--running{ border-bottom-color: rgba(0,229,255,.25);  }
+
+.pf-summary__left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 220px;
+}
+.pf-summary__title {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.pf-summary__sub {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.pf-summary__stats {
+  display: flex;
+  gap: 14px;
+  flex-shrink: 0;
+}
+.pf-stat {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+}
+.pf-stat span {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+}
+.pf-stat--pass span { color: var(--green-bright); }
+.pf-stat--warn span { color: var(--amber); }
+.pf-stat--fail span { color: var(--red-bright); }
+
+/* Progress bar — absolutely positioned at bottom of summary */
+.pf-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--border-subtle);
+}
+.pf-progress__bar {
+  height: 100%;
+  transition: width 0.3s ease;
+}
+.pf-progress__bar--pass    { background: var(--green-bright); box-shadow: 0 0 6px var(--green-bright); }
+.pf-progress__bar--warn    { background: var(--amber); }
+.pf-progress__bar--fail    { background: var(--red-bright); }
+.pf-progress__bar--pending,
+.pf-progress__bar--running { background: var(--cyan-bright); }
+
+.pf-summary__actions {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+/* ── Buttons ────────────────────────────────────────────────── */
+.pf-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 14px;
+  border-radius: 5px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 500;
+  transition: all 0.12s ease;
+}
+.pf-btn--run {
+  background: var(--cyan-glow);
+  border-color: rgba(0,229,255,.3);
+  color: var(--cyan-bright);
+}
+.pf-btn--run:hover { background: rgba(0,229,255,.2); border-color: rgba(0,229,255,.5); }
+.pf-btn--cancel {
+  background: rgba(255,45,85,.1);
+  border-color: rgba(255,45,85,.3);
+  color: var(--red-bright);
+}
+.pf-btn--cancel:hover { background: rgba(255,45,85,.18); }
+
+/* ── Body layout ────────────────────────────────────────────── */
+.pf-body {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* ── Groups column ──────────────────────────────────────────── */
+.pf-groups {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.pf-groups::-webkit-scrollbar { width: 4px; }
+.pf-groups::-webkit-scrollbar-thumb { background: var(--cyan-dim); border-radius: 2px; }
+
+/* ── Group card ─────────────────────────────────────────────── */
+.pf-group {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 7px;
+  overflow: hidden;
+  transition: border-color 0.12s;
+}
+.pf-group--pass    { border-color: rgba(57,255,20,.2);  }
+.pf-group--warn    { border-color: rgba(245,158,11,.2); }
+.pf-group--fail    { border-color: rgba(255,45,85,.25); }
+.pf-group--running { border-color: rgba(0,229,255,.2);  }
+.pf-group--empty   { opacity: 0.55; }
+
+.pf-group__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.1s;
+}
+.pf-group__header:hover { background: rgba(255,255,255,.03); }
+
+.pf-group__left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.pf-group__icon { color: var(--text-muted); }
+.pf-group__label {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.pf-group__badges {
+  display: flex;
+  gap: 5px;
+}
+.pf-badge {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+.pf-badge--pass { background: rgba(57,255,20,.1);  color: var(--green-bright); border: 1px solid rgba(57,255,20,.2);  }
+.pf-badge--warn { background: rgba(245,158,11,.1); color: var(--amber);        border: 1px solid rgba(245,158,11,.2); }
+.pf-badge--fail { background: rgba(255,45,85,.1);  color: var(--red-bright);   border: 1px solid rgba(255,45,85,.2);  }
+
+.pf-group__right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-muted);
+}
+
+.pf-group__checks {
+  border-top: 1px solid var(--border-subtle);
+  padding: 4px 0;
+  background: rgba(0,0,0,.1);
+}
+
+/* ── Individual check row ───────────────────────────────────── */
+.pf-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 7px 14px;
+  border-bottom: 1px solid rgba(255,255,255,.03);
+  transition: background 0.08s;
+}
+.pf-check:last-child { border-bottom: none; }
+.pf-check:hover { background: rgba(255,255,255,.02); }
+
+.pf-check__body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.pf-check__label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-ui);
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+.pf-check__crit {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  color: var(--red-bright);
+  background: rgba(255,45,85,.08);
+  border: 1px solid rgba(255,45,85,.2);
+  padding: 1px 4px;
+  border-radius: 2px;
+}
+.pf-check__detail {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-muted);
+  word-break: break-word;
+}
+
+.pf-check--fail .pf-check__label  { color: var(--red-bright); }
+.pf-check--fail .pf-check__detail { color: rgba(255,45,85,.7); }
+.pf-check--warn .pf-check__label  { color: var(--amber); }
+.pf-check--warn .pf-check__detail { color: rgba(245,158,11,.7); }
+.pf-check--pass .pf-check__detail { color: rgba(57,255,20,.5); }
+
+/* ── Status icons ───────────────────────────────────────────── */
+.pf-icon { flex-shrink: 0; margin-top: 1px; }
+.pf-icon--pending { color: var(--text-muted); opacity: 0.35; }
+.pf-icon--running { color: var(--cyan-bright); }
+.pf-icon--pass    { color: var(--green-bright); }
+.pf-icon--warn    { color: var(--amber); }
+.pf-icon--fail    { color: var(--red-bright); }
+
+/* ── Tips panel ─────────────────────────────────────────────── */
+.pf-tips {
+  width: 260px;
+  flex-shrink: 0;
+  border-left: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+  overflow-y: auto;
+  padding: 14px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.pf-tips::-webkit-scrollbar { width: 4px; }
+.pf-tips::-webkit-scrollbar-thumb { background: var(--cyan-dim); border-radius: 2px; }
+.pf-tips__heading {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+}
+.pf-tips__empty {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.pf-tip {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 9px 10px;
+  border-radius: 5px;
+  border: 1px solid transparent;
+}
+.pf-tip--pass    { background: rgba(57,255,20,.05);  border-color: rgba(57,255,20,.15);  color: var(--green-bright); }
+.pf-tip--warn    { background: rgba(245,158,11,.05); border-color: rgba(245,158,11,.2);  color: var(--amber); }
+.pf-tip--fail    { background: rgba(255,45,85,.06);  border-color: rgba(255,45,85,.2);   color: var(--red-bright); }
+.pf-tip--running { background: rgba(0,229,255,.05);  border-color: rgba(0,229,255,.15);  color: var(--cyan-dim); }
+
+.pf-tip svg { flex-shrink: 0; margin-top: 1px; }
+
+.pf-tip div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 11px;
+}
+.pf-tip strong {
+  font-size: 11px;
+  font-weight: 600;
+}
+.pf-tip code {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  background: rgba(0,0,0,.3);
+  padding: 3px 6px;
+  border-radius: 3px;
+  color: var(--cyan-bright);
+  word-break: break-all;
+}
+.pf-tip p {
+  font-size: 9px;
+  opacity: 0.8;
+  line-height: 1.4;
+}
+
+/* ── Spin animation ─────────────────────────────────────────── */
+.spin { animation: pf-spin 0.8s linear infinite; }
+@keyframes pf-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }

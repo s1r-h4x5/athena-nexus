@@ -1,0 +1,62 @@
+[package]
+name = "athena-nexus"
+version = "0.1.0"
+description = "Athena Nexus — Container Orchestrator"
+authors = ["Athena OS Team"]
+license = "MIT"
+repository = "https://github.com/athenaos/container-manager"
+edition = "2021"
+rust-version = "1.77"
+
+[profile.dev]
+incremental = true
+
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = "s"
+panic = "abort"
+strip = true
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = ["tray-icon", "image-png"] }
+tauri-plugin-shell = "2"
+tauri-plugin-fs = "2"
+tauri-plugin-dialog = "2"
+tauri-plugin-notification = "2"
+tauri-plugin-http = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tokio = { version = "1", features = ["full"] }
+
+# Podman/Docker socket communication
+
+# Async HTTP
+reqwest = { version = "0.13", features = ["json", "stream"] }
+
+# Keyring / secret store
+keyring = "3"
+
+# Compression for snapshots
+flate2 = "1"
+tar = "0.4"
+
+# System
+libc = "0.2"
+urlencoding = "2"
+
+# Logging
+log = "0.4"
+env_logger = "0.11"
+
+# Error handling
+anyhow = "1"
+thiserror = "2"
+
+# Config file management
+dirs = "6"
+
+# No custom features needed — Tauri v2 handles protocol internally

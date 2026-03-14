@@ -1,0 +1,211 @@
+# ═══════════════════════════════════════════════════════════
+# Athena Container Manager — Bundled Tool Registry
+# Format: tools.yaml
+#
+# Add new tools here to make them available in the UI.
+# This file ships with the app and can be updated independently.
+# User-defined tools are stored separately in config.json.
+# ═══════════════════════════════════════════════════════════
+
+version: "1"
+
+tools:
+
+  # ── Vulnerability Management ─────────────────────────── #
+
+  - id: openvas
+    name: Greenbone OpenVAS
+    category: vulnerability
+    description: >
+      Full-featured open source vulnerability scanner. The Greenbone Community
+      Edition includes OpenVAS scanner, GVM, and the Greenbone Security Assistant
+      web interface. Industry-standard for network vulnerability assessment.
+    image: greenbone/community-edition
+    compose_url: https://greenbone.github.io/docs/latest/22.4/container/docker-compose-22.4.yml
+    entrypoint: "https://localhost:9392"
+    health_check: "https://localhost:9392/login"
+    ports: [9392, 9390]
+    icon: openvas.svg
+    tags: [scanner, vulnerability, compliance, cve]
+
+  - id: nuclei
+    name: Nuclei
+    category: vulnerability
+    description: >
+      Fast and customizable vulnerability scanner based on templates.
+      Supports thousands of community templates for CVEs, misconfigurations,
+      exposed panels, and more. Run via CLI inside a managed container.
+    image: projectdiscovery/nuclei:latest
+    entrypoint: null
+    health_check: null
+    ports: []
+    icon: nuclei.svg
+    tags: [scanner, templates, fast, cli]
+
+  # ── SIEM ─────────────────────────────────────────────── #
+
+  - id: wazuh
+    name: Wazuh SIEM
+    category: siem
+    description: >
+      Security information and event management platform. Provides intrusion
+      detection, log analysis, file integrity monitoring, vulnerability detection,
+      and compliance reporting (PCI-DSS, HIPAA, GDPR, NIST).
+    image: wazuh/wazuh-manager:4.7.0
+    compose_url: https://packages.wazuh.com/4.7/docker/docker-compose.yml
+    entrypoint: "https://localhost:443"
+    health_check: "https://localhost:443"
+    ports: [443, 1514, 1515, 55000]
+    icon: wazuh.svg
+    tags: [siem, ids, log-analysis, compliance]
+
+  - id: elastic-siem
+    name: Elastic SIEM Stack
+    category: siem
+    description: >
+      Elasticsearch + Kibana + Logstash + Elastic Agent. Full-featured SIEM
+      with detection rules, threat intelligence feeds, and ML-based anomaly
+      detection. Requires significant RAM (8 GB minimum recommended).
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.12.0
+    compose_url: null
+    entrypoint: "https://localhost:5601"
+    health_check: "https://localhost:5601/api/status"
+    ports: [5601, 9200, 9300]
+    icon: elastic.svg
+    tags: [siem, elastic, kibana, ml, detection]
+
+  # ── Digital Forensics ─────────────────────────────────── #
+
+  - id: velociraptor
+    name: Velociraptor
+    category: forensics
+    description: >
+      Advanced digital forensics and incident response platform. Deploy agents
+      to endpoints, collect forensic artefacts, run hunts, and query endpoint
+      state in real time using VQL (Velociraptor Query Language).
+    image: velocidex/velociraptor:latest
+    entrypoint: "https://localhost:8889"
+    health_check: "https://localhost:8889/app/index.html"
+    ports: [8889, 8000, 4884]
+    icon: velociraptor.svg
+    tags: [dfir, forensics, endpoint, hunting, vql]
+
+  - id: autopsy
+    name: Autopsy
+    category: forensics
+    description: >
+      Digital forensics platform with a graphical interface. Analyse disk images,
+      recover deleted files, review web activity, email, and perform keyword
+      searches across acquired evidence.
+    image: linuxserver/webtop:ubuntu-mate
+    entrypoint: "http://localhost:3000"
+    health_check: "http://localhost:3000"
+    ports: [3000]
+    icon: autopsy.svg
+    tags: [dfir, forensics, disk-image, evidence]
+
+  # ── Threat Intelligence ───────────────────────────────── #
+
+  - id: misp
+    name: MISP
+    category: threat-intel
+    description: >
+      Malware Information Sharing Platform. Collect, store, distribute, and share
+      indicators of compromise (IOCs), threat intelligence, and malware samples.
+      Supports STIX, TAXII, OpenIOC, and dozens of other formats.
+    image: coolacid/misp-docker:latest
+    compose_url: https://raw.githubusercontent.com/coolacid/docker-misp/master/docker-compose.yml
+    entrypoint: "https://localhost:8443"
+    health_check: "https://localhost:8443/users/login"
+    ports: [8443, 8080]
+    icon: misp.svg
+    tags: [threat-intel, ioc, sharing, stix, taxii]
+
+  - id: opencti
+    name: OpenCTI
+    category: threat-intel
+    description: >
+      Open Cyber Threat Intelligence platform. Structured storage and visualisation
+      of threat intelligence using STIX2. Integrates with MISP, VirusTotal,
+      Shodan, and dozens of other feeds.
+    image: opencti/platform:latest
+    compose_url: https://raw.githubusercontent.com/OpenCTI-Platform/docker/master/docker-compose.yml
+    entrypoint: "http://localhost:8080"
+    health_check: "http://localhost:8080/graphql"
+    ports: [8080]
+    icon: opencti.svg
+    tags: [threat-intel, stix, cti, visualisation]
+
+  # ── Network Analysis ──────────────────────────────────── #
+
+  - id: zeek
+    name: Zeek IDS
+    category: network
+    description: >
+      Powerful network analysis framework. Performs deep packet inspection,
+      protocol analysis, and generates structured logs for all network activity.
+      Foundation for many SIEM integrations.
+    image: zeek/zeek:latest
+    entrypoint: null
+    health_check: null
+    ports: []
+    icon: zeek.svg
+    tags: [ids, network, packet-analysis, dpi, logging]
+
+  - id: suricata
+    name: Suricata IDS/IPS
+    category: network
+    description: >
+      High-performance network intrusion detection and prevention system (IDS/IPS).
+      Supports multi-threading, hardware acceleration, and real-time rule-based
+      traffic analysis. Compatible with Snort rules.
+    image: jasonish/suricata:latest
+    entrypoint: null
+    health_check: null
+    ports: []
+    icon: suricata.svg
+    tags: [ids, ips, network, rules, snort]
+
+  # ── Utilities ─────────────────────────────────────────── #
+
+  - id: cyberchef
+    name: CyberChef
+    category: utilities
+    description: >
+      The Cyber Swiss Army Knife. A web-based tool for encoding, decoding,
+      encrypting, analysing, and transforming data. Supports hundreds of
+      operations including AES, hash functions, Base64, JWT, and more.
+    image: mpepping/cyberchef:latest
+    entrypoint: "http://localhost:8080"
+    health_check: "http://localhost:8080"
+    ports: [8080]
+    icon: cyberchef.svg
+    tags: [utility, encoding, crypto, analysis]
+
+  - id: portainer
+    name: Portainer CE
+    category: utilities
+    description: >
+      Lightweight management UI for container environments. Manage containers,
+      images, networks, and volumes through a web interface. Community Edition
+      supports Podman and Docker.
+    image: portainer/portainer-ce:latest
+    entrypoint: "https://localhost:9443"
+    health_check: "https://localhost:9443"
+    ports: [9443, 9000, 8000]
+    icon: portainer.svg
+    tags: [management, ui, admin]
+
+  - id: it-tools
+    name: IT Tools
+    category: utilities
+    description: >
+      Collection of handy online tools for developers and security professionals.
+      Includes JWT decoder, hash generator, UUID generator, regex tester,
+      network calculators, and 80+ more tools.
+    image: corentinth/it-tools:latest
+    entrypoint: "http://localhost:8080"
+    health_check: "http://localhost:8080"
+    ports: [8080]
+    icon: it-tools.svg
+    tags: [utility, developer, tools, web]

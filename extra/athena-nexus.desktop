@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=Athena Nexus
+GenericName=Container Orchestrator
+Comment=Deploy and manage security tools as containers
+Exec=athena-nexus
+Icon=athena-nexus
+Terminal=false
+Type=Application
+Categories=System;Security;Network;
+Keywords=container;docker;podman;security;pentest;siem;forensics;
+StartupNotify=true
+StartupWMClass=athena-nexus

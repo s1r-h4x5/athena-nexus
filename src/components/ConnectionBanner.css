@@ -1,0 +1,91 @@
+.conn-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 20px;
+  background: rgba(255,45,85,0.08);
+  border-bottom: 1px solid rgba(255,45,85,0.25);
+  flex-shrink: 0;
+  animation: fadeIn 0.3s ease;
+}
+
+.conn-banner__icon {
+  color: var(--red-bright);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.conn-banner__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.conn-banner__title {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--red-bright);
+  letter-spacing: 0.03em;
+}
+
+.conn-banner__msg {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.conn-banner__hint {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
+.conn-banner__hint code {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--cyan-mid);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 3px;
+  padding: 1px 6px;
+}
+
+.conn-banner__btn {
+  height: 30px;
+  padding: 0 12px;
+  border-radius: 5px;
+  border: 1px solid rgba(255,45,85,0.4);
+  background: rgba(255,45,85,0.1);
+  color: var(--red-bright);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 500;
+  flex-shrink: 0;
+  transition: all 0.12s ease;
+}
+
+.conn-banner__btn:hover:not(:disabled) {
+  background: rgba(255,45,85,0.18);
+}
+
+.conn-banner__btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.conn-banner__btn--spin svg {
+  animation: spin 1s linear infinite;
+}

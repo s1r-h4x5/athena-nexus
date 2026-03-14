@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+
+  <!-- Outer hex -->
+  <polygon points="256,52 432,154 432,358 256,460 80,358 80,154"
+           fill="#0d1f33" stroke="#00c8e0" stroke-width="8"/>
+
+  <!-- Inner hex (bevel) -->
+  <polygon points="256,82 404,166 404,334 256,418 108,334 108,166"
+           fill="none" stroke="#00c8e0" stroke-width="1.5" opacity="0.25"/>
+
+  <!-- Connector lines -->
+  <line x1="256" y1="152" x2="160" y2="306" stroke="#00c8e0" stroke-width="4" stroke-linecap="round"/>
+  <line x1="256" y1="152" x2="352" y2="306" stroke="#00c8e0" stroke-width="4" stroke-linecap="round"/>
+  <line x1="160" y1="306" x2="352" y2="306" stroke="#00c8e0" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- Node circles — outer ring -->
+  <circle cx="256" cy="152" r="28" fill="#00c8e0"/>
+  <circle cx="160" cy="306" r="28" fill="#00c8e0"/>
+  <circle cx="352" cy="306" r="28" fill="#00c8e0"/>
+
+  <!-- Node inner holes -->
+  <circle cx="256" cy="152" r="13" fill="#0a1628"/>
+  <circle cx="160" cy="306" r="13" fill="#0a1628"/>
+  <circle cx="352" cy="306" r="13" fill="#0a1628"/>
+
+  <!-- Node center dots -->
+  <circle cx="256" cy="152" r="5" fill="#00c8e0"/>
+  <circle cx="160" cy="306" r="5" fill="#00c8e0"/>
+  <circle cx="352" cy="306" r="5" fill="#00c8e0"/>
+
+</svg>

@@ -1,0 +1,179 @@
+/* ═══════════════════════════════════════════════════════════
+   Dashboard — Main tool grid page
+   ═══════════════════════════════════════════════════════════ */
+
+.dashboard {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-width: 0;
+}
+
+/* ── Stats bar ───────────────────────────────────────────── */
+.dashboard__statsbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 20px;
+  border-bottom: 1px solid var(--border-subtle);
+  background: rgba(8,12,16,0.6);
+  flex-wrap: wrap;
+}
+
+.stat-pill {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-elevated);
+}
+
+.stat-pill--green { border-color: rgba(57,255,20,0.2); background: rgba(57,255,20,0.05); }
+.stat-pill--red   { border-color: rgba(255,45,85,0.2); background: rgba(255,45,85,0.05); }
+.stat-pill--muted { border-color: rgba(100,116,139,0.2); }
+
+.stat-pill__value {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.stat-pill--green .stat-pill__value { color: var(--green-bright); text-shadow: 0 0 8px rgba(57,255,20,0.5); }
+.stat-pill--red   .stat-pill__value { color: var(--red-bright); text-shadow: 0 0 8px rgba(255,45,85,0.5); }
+.stat-pill--muted .stat-pill__value { color: var(--text-muted); }
+
+.stat-pill__label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+
+/* ── Filters ─────────────────────────────────────────────── */
+.dashboard__filters {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  color: var(--text-muted);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 5px;
+  padding: 2px 3px;
+}
+
+.filter-btn {
+  height: 22px;
+  padding: 0 9px;
+  border-radius: 3px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.05em;
+  transition: all var(--transition-fast);
+}
+
+.filter-btn:hover {
+  color: var(--text-secondary);
+  background: rgba(255,255,255,0.05);
+}
+
+.filter-btn--active {
+  color: var(--cyan-bright);
+  background: var(--cyan-glow);
+  border-color: rgba(0,229,255,0.3);
+  text-shadow: 0 0 8px rgba(0,229,255,0.4);
+}
+
+/* Sort dropdown now uses the shared ThemedSelect component */
+
+
+.view-toggle {
+  display: flex;
+  border: 1px solid var(--border-subtle);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.view-toggle__btn {
+  height: 24px;
+  width: 28px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+
+.view-toggle__btn:first-child {
+  border-right: 1px solid var(--border-subtle);
+}
+
+.view-toggle__btn:hover {
+  background: var(--bg-elevated);
+  color: var(--text-secondary);
+}
+
+.view-toggle__btn--active {
+  background: var(--cyan-glow);
+  color: var(--cyan-bright);
+}
+
+/* ── Content area ────────────────────────────────────────── */
+.dashboard__content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+/* ── Tool grid ───────────────────────────────────────────── */
+.tool-grid {
+  display: grid;
+  gap: 14px;
+}
+
+.tool-grid--grid {
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+}
+
+.tool-grid--list {
+  grid-template-columns: 1fr;
+  max-width: 900px;
+}
+
+/* ── Empty state ─────────────────────────────────────────── */
+.dashboard__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  gap: 12px;
+  color: var(--text-muted);
+}
+
+.dashboard__empty .mono {
+  font-size: 18px;
+  color: var(--cyan-dim);
+}
+
+.dashboard__empty p {
+  font-size: 13px;
+}
